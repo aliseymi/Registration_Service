@@ -23,7 +23,7 @@ class RegisterController extends Controller
     |
     */
 
-//    use RegistersUsers;
+    use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
@@ -80,16 +80,12 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        // validate
         $this->validateForm($request);
 
-        // store user
         $user = $this->create($request->all());
 
-        // login
         auth()->login($user);
 
-        //redirect
         return redirect(route('home'))->with('registered', true);
     }
 

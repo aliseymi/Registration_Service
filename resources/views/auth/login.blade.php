@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="#">
+                    <form method="POST" action="{{ route('auth.login') }}">
                         @csrf
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label" for="email">@lang('auth.email')</label>
