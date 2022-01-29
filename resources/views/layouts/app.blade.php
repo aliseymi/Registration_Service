@@ -15,6 +15,11 @@
     <!-- Nav Menu -->
    @include('partials.navbar')
 
+    @if(session('mustVerifyEmail'))
+        <div class="alert alert-danger text-center">
+            @lang('auth.you must verify your email')
+        </div>
+    @endif
     <div class="container">
         @yield('content')
     </div>
