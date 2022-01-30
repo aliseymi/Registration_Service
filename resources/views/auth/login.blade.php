@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('links')
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+@endsection
+
 @section('title' , __('auth.login'))
 
 
@@ -37,6 +41,9 @@
                             </div>
                         </div>
 
+                        <div class="offset-sm-3 mb-3">
+                            @include('partials.recaptcha')
+                        </div>
 
                         <div class="form-group row">
                             <div class="form-check offset-sm-3">

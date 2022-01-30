@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Rules\Recaptcha;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
@@ -58,7 +59,10 @@ class LoginController extends Controller
     {
         $request->validate([
             'email' => 'required|string|email|exists:users',
-            'password' => 'required|string'
+            'password' => 'required|string',
+            'g-recaptcha-response' => ['required', new Recaptcha()]
+        ],[
+            'g-recaptcha-response.required' => 'لطفا تیک من ربات نیستم را بزنید'
         ]);
     }
 
