@@ -23,4 +23,6 @@ Route::prefix('auth')->group(function (){
     Route::get('login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('auth.login.form');
     Route::post('login', [\App\Http\Controllers\Auth\LoginController::class, 'login'])->name('auth.login');
     Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('auth.logout');
+    Route::get('email/send-verification', [\App\Http\Controllers\Auth\VerificationController::class, 'send'])->name('auth.email.send.verification');
+    Route::get('email/verify', [\App\Http\Controllers\Auth\VerificationController::class, 'verify'])->name('auth.email.verification');
 });

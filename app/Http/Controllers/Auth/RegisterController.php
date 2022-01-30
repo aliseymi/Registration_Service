@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -85,6 +86,8 @@ class RegisterController extends Controller
         $user = $this->create($request->all());
 
         auth()->login($user);
+
+        event(new UserRegistered($user));
 
         return redirect(route('home'))->with('registered', true);
     }
