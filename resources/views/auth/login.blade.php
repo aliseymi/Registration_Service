@@ -44,7 +44,7 @@
                                 <label class="form-check-label" for="remember"><small>@lang('auth.remember me')</small></label>
                             </div>
                             <div class="form-check">
-                                <a href="#"><small>@lang('auth.forget your password?')</small></a>
+                                <a href="{{ route('auth.forget.password.form') }}"><small>@lang('auth.forget your password?')</small></a>
                             </div>
                         </div>
                         <div class="offset-sm-3">

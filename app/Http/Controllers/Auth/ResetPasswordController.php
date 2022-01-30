@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Password;
 
 class ResetPasswordController extends Controller
 {
@@ -19,7 +22,7 @@ class ResetPasswordController extends Controller
     |
     */
 
-    use ResetsPasswords;
+//    use ResetsPasswords;
 
     /**
      * Where to redirect users after resetting their password.
@@ -27,4 +30,48 @@ class ResetPasswordController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
+    public function showResetForm(Request $request)
+    {
+        return view('auth.reset-password', [
+            'token' => $request->query('token'),
+            'email' => $request->query('email')
+        ]);
+    }
+
+    public function reset(Request $request)
+    {
+        $this->validateForm($request);
+
+        $response = Password::broker()->reset($request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user, $password){
+                $this->resetPassword($user, $password);
+            }
+        );
+
+        return $response === Password::PASSWORD_RESET
+            ? redirect()->route('auth.login')->with('passwordChanged', true)
+            : back()->with('cantChangePassword', true);
+    }
+
+    private function validateForm(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email|exists:users',
+            'password' => 'required|string|min:8|confirmed',
+            'token' => 'required|string'
+        ]);
+    }
+
+    private function resetPassword($user, $password)
+    {
+        $user->password = Hash::make($password);
+
+        $user->save();
+    }
 }

@@ -25,4 +25,8 @@ Route::prefix('auth')->group(function (){
     Route::get('logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('auth.logout');
     Route::get('email/send-verification', [\App\Http\Controllers\Auth\VerificationController::class, 'send'])->name('auth.email.send.verification');
     Route::get('email/verify', [\App\Http\Controllers\Auth\VerificationController::class, 'verify'])->name('auth.email.verification');
+    Route::get('password/forget', [\App\Http\Controllers\Auth\ForgotPasswordController::class, 'showForgetForm'])->name('auth.forget.password.form');
+    Route::post('password/forget', [\App\Http\Controllers\Auth\ForgotPasswordController::class, 'sendResetLink'])->name('auth.forget.password');
+    Route::get('password/reset', [\App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetForm'])->name('auth.reset.password.form');
+    Route::post('password/reset', [\App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('auth.reset.password');
 });
