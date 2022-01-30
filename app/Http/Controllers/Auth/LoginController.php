@@ -62,7 +62,7 @@ class LoginController extends Controller
             'password' => 'required|string',
             'g-recaptcha-response' => ['required', new Recaptcha()]
         ],[
-            'g-recaptcha-response.required' => 'لطفا تیک من ربات نیستم را بزنید'
+            'g-recaptcha-response.required' => __('auth.recaptcha')
         ]);
     }
 
