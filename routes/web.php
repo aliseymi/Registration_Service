@@ -32,4 +32,6 @@ Route::prefix('auth')->group(function (){
     Route::get('redirect/{provider}', [\App\Http\Controllers\Auth\SocialController::class, 'redirectToProvider'])->name('auth.login.provider.redirect');
     Route::get('{provider}/callback', [\App\Http\Controllers\Auth\SocialController::class, 'providerCallback'])->name('auth.login.provider.callback');
     Route::get('magic/login', [\App\Http\Controllers\Auth\MagicController::class, 'showMagicForm'])->name('auth.magic.login.form');
+    Route::post('magic/login', [\App\Http\Controllers\Auth\MagicController::class, 'sendToken'])->name('auth.magic.login.token');
+    Route::get('magic/login/{token}', [\App\Http\Controllers\Auth\MagicController::class, 'login'])->name('auth.magic.login');
 });
