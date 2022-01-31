@@ -29,4 +29,7 @@ Route::prefix('auth')->group(function (){
     Route::post('password/forget', [\App\Http\Controllers\Auth\ForgotPasswordController::class, 'sendResetLink'])->name('auth.forget.password');
     Route::get('password/reset', [\App\Http\Controllers\Auth\ResetPasswordController::class, 'showResetForm'])->name('auth.reset.password.form');
     Route::post('password/reset', [\App\Http\Controllers\Auth\ResetPasswordController::class, 'reset'])->name('auth.reset.password');
+    Route::get('redirect/{provider}', [\App\Http\Controllers\Auth\SocialController::class, 'redirectToProvider'])->name('auth.login.provider.redirect');
+    Route::get('{provider}/callback', [\App\Http\Controllers\Auth\SocialController::class, 'providerCallback'])->name('auth.login.provider.callback');
+    Route::get('magic/login', [\App\Http\Controllers\Auth\MagicController::class, 'showMagicForm'])->name('auth.magic.login.form');
 });
