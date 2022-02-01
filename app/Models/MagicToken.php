@@ -34,4 +34,9 @@ class MagicToken extends Model
     {
         return $this->created_at->diffInSeconds(now()) > self::TOKEN_EXPIRY;
     }
+
+    public function scopeExpired($query)
+    {
+        return $query->where('created_at', '<', now()->subSeconds(self::TOKEN_EXPIRY));
+    }
 }
