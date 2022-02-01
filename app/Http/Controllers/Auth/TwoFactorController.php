@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Code;
 use App\Services\Auth\TwoFactorAuthentication;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
@@ -30,31 +31,20 @@ class TwoFactorController extends Controller
 
     public function activate()
     {
-        $response = $this->twoFactorAuth->requestCode();
+        $response = $this->twoFactorAuth->requestCode(auth()->user());
 
         return $response === $this->twoFactorAuth::CODE_SENT
             ? redirect()->route('auth.two.factor.code.form')
             : back()->with('cantSendCode', true);
     }
 
-    public function confirmCode(Request $request)
+    public function confirmCode(Code $request)
     {
-        $this->validateForm($request);
-
         $response = $this->twoFactorAuth->activate();
 
         return $response === $this->twoFactorAuth::ACTIVATED
             ? redirect()->route('home')->with('twoFactorActivated', true)
             : back()->with('invalidCode', true);
-    }
-
-    private function validateForm(Request $request)
-    {
-        $request->validate([
-            'code' => 'required|numeric|digits:4'
-        ], [
-            'code.digits' => __('auth.invalidCode')
-        ]);
     }
 
     public function deactivate()

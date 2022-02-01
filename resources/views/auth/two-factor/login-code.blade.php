@@ -14,7 +14,7 @@
             </div>
             <div class="card-body">
                 <p class="small text-center card-text">@lang('auth.we\'ve send a SMS to your number')</p>
-            <form method="POST" action="{{route('auth.login.code')}}">
+            <form method="POST" action="{{ route('auth.login.code') }}">
                         @csrf
                         <div class="form-group row">
                             <div class="col-sm-8 offset-sm-2">
@@ -27,9 +27,8 @@
                         </div>
                         <div class="offset-sm-3">
                             <button type="submit" class="btn btn-primary">@lang('auth.confirm')</button>
-                        <a class="small ml-2" href="{{route('auth.two.factor.resent')}}">@lang('auth.didNotGetCode')</a>
+                        <a class="small ml-2" href="#">@lang('auth.didNotGetCode')</a>
                         </div>
-            </div>
             </form>
         </div>
     </div>

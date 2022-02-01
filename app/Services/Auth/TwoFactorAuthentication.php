@@ -11,6 +11,7 @@ class TwoFactorAuthentication
     const CODE_SENT = 'code.sent';
     const INVALID_CODE = 'code.invalid';
     const ACTIVATED = 'activated';
+    const AUTHENTICATED = 'code.authenticated';
 
     protected $request;
 
@@ -21,9 +22,9 @@ class TwoFactorAuthentication
         $this->request = $request;
     }
 
-    public function requestCode()
+    public function requestCode(User $user)
     {
-        $code = TwoFactor::generateCodeFor(auth()->user());
+        $code = TwoFactor::generateCodeFor($user);
 
         $this->setSession($code);
 
@@ -36,8 +37,14 @@ class TwoFactorAuthentication
     {
         session([
             'code_id' => $code->id,
-            'user_id' => $code->user_id
+            'user_id' => $code->user_id,
+            'remember' => $this->request->remember
         ]);
+    }
+
+    protected function forgetSession()
+    {
+        session(['code_id', 'user_id', 'remember']);
     }
 
     public function activate()
@@ -48,7 +55,22 @@ class TwoFactorAuthentication
 
         $this->getUser()->activateTwoFactor();
 
+        $this->forgetSession();
+
         return static::ACTIVATED;
+    }
+
+    public function login()
+    {
+        if(!$this->isValidCode()) return static::INVALID_CODE;
+
+        $this->getToken()->delete();
+
+        auth()->login($this->getUser(), session('remember'));
+
+        $this->forgetSession();
+
+        return static::AUTHENTICATED;
     }
 
     protected function isValidCode()
