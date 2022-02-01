@@ -92,4 +92,9 @@ class TwoFactorAuthentication
     {
         return $user->deactivateTwoFactor();
     }
+
+    public function resend()
+    {
+        return $this->requestCode($this->getUser());
+    }
 }

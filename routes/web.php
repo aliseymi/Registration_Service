@@ -41,4 +41,5 @@ Route::prefix('auth')->group(function (){
     Route::get('two-factor/deactivate', [\App\Http\Controllers\Auth\TwoFactorController::class, 'deactivate'])->name('auth.two.factor.deactivate');
     Route::get('login/code', [\App\Http\Controllers\Auth\LoginController::class, 'showCodeForm'])->name('auth.login.code.form');
     Route::post('login/code', [\App\Http\Controllers\Auth\LoginController::class, 'confirmCode'])->name('auth.login.code');
+    Route::get('two-factor/resend', [\App\Http\Controllers\Auth\TwoFactorController::class, 'resend'])->name('auth.two.factor.resend');
 });
