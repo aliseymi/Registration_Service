@@ -34,4 +34,7 @@ Route::prefix('auth')->group(function (){
     Route::get('magic/login', [\App\Http\Controllers\Auth\MagicController::class, 'showMagicForm'])->name('auth.magic.login.form');
     Route::post('magic/login', [\App\Http\Controllers\Auth\MagicController::class, 'sendToken'])->name('auth.magic.login.token');
     Route::get('magic/login/{token}', [\App\Http\Controllers\Auth\MagicController::class, 'login'])->name('auth.magic.login');
+    Route::get('two-factor/toggle', [\App\Http\Controllers\Auth\TwoFactorController::class, 'showToggleForm'])->name('auth.two.factor.toggle.form');
+    Route::get('two-factor/activate', [\App\Http\Controllers\Auth\TwoFactorController::class, 'activate'])->name('auth.two.factor.activate');
+    Route::get('two-factor/code', [\App\Http\Controllers\Auth\TwoFactorController::class, 'showEnterCodeForm'])->name('auth.two.factor.code.form');
 });

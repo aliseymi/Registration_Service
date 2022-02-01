@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Jobs\SendEmail;
 use App\Mail\ResetPassword;
 use App\Mail\VerificationEmail;
+use App\Services\Auth\Traits\HasTwoFactorAuth;
 use App\Services\Auth\Traits\MagicallyAuthenticable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,7 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, MagicallyAuthenticable;
+    use HasApiTokens, HasFactory, Notifiable, MagicallyAuthenticable, HasTwoFactorAuth;
 
     /**
      * The attributes that are mass assignable.

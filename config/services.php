@@ -41,4 +41,9 @@ return [
         'redirect' => env('GOOGLE_REDIRECT_LINK')
     ],
 
+    'ghasedakSms' => [
+        'key' => env('GHASEDAK_API_KEY'),
+        'line_number' => env('GHASEDAK_LINE_NUMBER')
+    ],
+
 ];
