@@ -17,4 +17,16 @@ trait HasTwoFactorAuth
 
         $this->save();
     }
+
+    public function hasTwoFactor()
+    {
+        return $this->has_two_factor;
+    }
+
+    public function deactivateTwoFactor()
+    {
+        $this->has_two_factor = false;
+
+        $this->save();
+    }
 }

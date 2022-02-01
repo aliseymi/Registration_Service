@@ -56,4 +56,11 @@ class TwoFactorController extends Controller
             'code.digits' => __('auth.invalidCode')
         ]);
     }
+
+    public function deactivate()
+    {
+        $this->twoFactorAuth->deactivate(auth()->user());
+
+        return back()->with('twoFactorDeactivated', true);
+    }
 }

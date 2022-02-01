@@ -65,4 +65,9 @@ class TwoFactorAuthentication
     {
         return User::findOrFail(session('user_id'));
     }
+
+    public function deactivate(User $user)
+    {
+        return $user->deactivateTwoFactor();
+    }
 }
