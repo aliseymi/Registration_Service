@@ -14,7 +14,7 @@
             </div>
             <div class="card-body">
                 <p class="small text-center card-text">@lang('auth.we\'ve send a SMS to your number')</p>
-            <form method="POST" action="#">
+            <form method="POST" action="{{ route('auth.two.factor.code') }}">
                         @csrf
                         <div class="form-group row">
                             <div class="col-sm-8 offset-sm-2">
